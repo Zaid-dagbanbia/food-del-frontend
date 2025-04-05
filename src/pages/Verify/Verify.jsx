@@ -15,6 +15,7 @@ const Verify = () => {
 
   const verifyPayment = async (retry = false) => {
     try {
+        console.log(`Calling: ${url}/api/order/verify`);
         const response = await axios.post(
             `${url}/api/order/verify`,
             { success, orderId },
@@ -26,13 +27,20 @@ const Verify = () => {
               }
             }
           );
+
+          console.log("Verification response:", response.data);
+
       if (response.data.success) {
         navigate("/myorders");
       } else {
         navigate("/");
       }
     } catch (error) {
-      console.error("Verification failed:", error.message);
+      console.error("Verification error:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status
+    });
       if (!retry) {
         setTimeout(() => verifyPayment(true), 2000); // try once after delay
       } else {
