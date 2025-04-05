@@ -41,6 +41,9 @@ const Verify = () => {
       response: error.response?.data,
       status: error.response?.status
     });
+    if (error.response?.status === 404) {
+        console.error("Endpoint not found - check your backend routes");
+      }
       if (!retry) {
         setTimeout(() => verifyPayment(true), 2000); // try once after delay
       } else {
