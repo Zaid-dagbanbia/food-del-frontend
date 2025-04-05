@@ -15,10 +15,17 @@ const Verify = () => {
 
   const verifyPayment = async (retry = false) => {
     try {
-      const response = await axios.post(url + "/api/order/verify", {
-        success,
-        orderId,
-      });
+        const response = await axios.post(
+            `${url}/api/order/verify`,
+            { success, orderId },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                // Add token if required
+                token: localStorage.getItem('token') || ''
+              }
+            }
+          );
       if (response.data.success) {
         navigate("/myorders");
       } else {
