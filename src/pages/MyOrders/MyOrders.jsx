@@ -15,7 +15,7 @@ const MyOrders = () => {
       {},
       { headers: { token } }
     );
-      console.log(response.data);
+
     setData(response.data.data);
   };
 
@@ -40,7 +40,8 @@ const MyOrders = () => {
                   } else {
                     return item.name + "x" + item.quantity + ",";
                   }
-                })} </p>
+                })}{" "}
+              </p>
               <p>€{order.amount}.00</p>
               <p>Items:{order.items.length}</p>
               <p>
